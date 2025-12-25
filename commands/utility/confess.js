@@ -37,7 +37,18 @@ module.exports = {
       return;
     }
 
-    interaction.client.channels.cache.get(channel).send(confession);
-		await interaction.reply({ content: "success", flags: MessageFlags.Ephemeral });
+    const number = (json[interaction.guild.id].confessions_number || 0) + 1;
+    
+    if (!number) {
+      json[interaction.guild.id].confessions_number = "1";
+      number = "1";
+    }
+
+    interaction.client.channels.cache.get(channel).send(`Confession #${number}: ${confession}`);
+
+    json[interaction.guild.id].confessions_number = number;
+    fs.writeFileSync("settings.json", JSON.stringify(json, null, 2));
+
+		await interaction.reply({ content: `success, your confession was sent as #${number}`, flags: MessageFlags.Ephemeral });
   },
 };
