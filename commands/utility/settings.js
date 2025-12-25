@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const fs = require('fs');
+//todo: prevent confessions,triggers vals from being changed here
 
 module.exports = {
 	data: new SlashCommandBuilder()

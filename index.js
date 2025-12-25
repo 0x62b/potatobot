@@ -22,6 +22,7 @@ client.on('messageCreate', (message) => {
   if (!json[message.guild.id]) return;
 
   const triggers = json[message.guild.id].triggers;
+  if (!triggers) return;
   triggers.split(',').map((t) => {
     const trigger = t.split(':')[0];
     const msg = t.split(':')[1];
