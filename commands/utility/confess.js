@@ -49,6 +49,10 @@ module.exports = {
     json[interaction.guild.id].confessions_number = number;
     fs.writeFileSync("settings.json", JSON.stringify(json, null, 2));
 
+    if (json[interaction.guild.id].confessions_log == "true") {
+      fs.appendFileSync("confessions_log.txt", `${interaction.guild.id}:${number}:${confession}`);
+    }
+
 		await interaction.reply({ content: `success, your confession was sent as #${number}`, flags: MessageFlags.Ephemeral });
   },
 };
