@@ -12,6 +12,14 @@ module.exports = {
 	  const setting = interaction.options.getString('setting');
 	  const value = interaction.options.getString('value');
 
+    if (
+      setting == "confessions_number" ||
+      setting == "triggers"
+    ) {
+      await interaction.reply("this setting cannot be set from here");
+      return;
+    }
+
     if (!fs.existsSync("settings.json")) {
       fs.writeFileSync("settings.json", "{}");
     }
