@@ -5,10 +5,28 @@ const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
 
 const token = process.env.BOT_TOKEN;
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ]
+});
 
 client.once(Events.ClientReady, (readyClient) => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+});
+
+client.on('messageCreate', (message) => {
+  const json = JSON.parse(fs.readFileSync("settings.json"));
+  if (!json[message.guild.id]) return;
+
+  const triggers = json[message.guild.id].triggers;
+  triggers.split(',').map((t) => {
+    const trigger = t.split(':')[0];
+    const msg = t.split(':')[1];
+    if (message.content == trigger) message.reply(msg);
+  });
 });
 
 client.commands = new Collection();
