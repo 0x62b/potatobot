@@ -58,6 +58,17 @@ client.once('ready', () => {
 	banScheduler.init(client);
 });
 
+client.on(Events.GuildMemberAdd, async (member) => {
+	const json = JSON.parse(fs.readFileSync("settings.json"));
+
+	if (json && json[member.guild.id] && json[member.guild.id]["spawn_channel"] && json[member.guild.id]["spawn_message"]) {
+		const channel = await member.guild.channels.fetch(json[member.guild.id]["spawn_channel"]).catch(console.error);
+		if (channel) {
+			await channel.send(json[member.guild.id]["spawn_message"].replace("[USER]", member.user.tag));
+		}
+	}
+});
+
 client.on(Events.InteractionCreate, async (interaction) => {
 	if (!interaction.isChatInputCommand()) return;
 	const command = interaction.client.commands.get(interaction.commandName);
