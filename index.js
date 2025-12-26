@@ -3,6 +3,7 @@ require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
+const banScheduler = require('./banScheduler');
 
 const token = process.env.BOT_TOKEN;
 const client = new Client({
@@ -50,6 +51,10 @@ for (const folder of commandFolders) {
 		}
 	}
 }
+
+client.once('ready', () => {
+	banScheduler.init(client);
+});
 
 client.on(Events.InteractionCreate, async (interaction) => {
 	if (!interaction.isChatInputCommand()) return;
