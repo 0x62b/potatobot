@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 const fs = require('fs');
 
 module.exports = {
@@ -10,6 +10,11 @@ module.exports = {
 	async execute(interaction) {
 	  const setting = interaction.options.getString('setting');
 	  const value = interaction.options.getString('value');
+
+    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
+      await interaction.reply("you do not have sufficient perms");
+      return;
+    }
 
     if (
       setting == "confessions_number" ||
