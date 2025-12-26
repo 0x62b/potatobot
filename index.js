@@ -25,6 +25,7 @@ client.on('messageCreate', (message) => {
 
   const triggers = json[message.guild.id].triggers;
   if (!triggers) return;
+	
   triggers.split(',').map((t) => {
     const trigger = t.split(':')[0];
     const msg = t.split(':')[1];
@@ -35,19 +36,20 @@ client.on('messageCreate', (message) => {
 client.commands = new Collection();
 
 const foldersPath = path.join(__dirname, 'commands');
-const commandFolders = fs.readdirSync(foldersPath);
+const folders = fs.readdirSync(foldersPath);
 
-for (const folder of commandFolders) {
+for (const folder of folders) {
 	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
-	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
-		const command = require(filePath);
-		// Set a new item in the Collection with the key as the command name and the value as the exported module
+	const files = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
+
+	for (const file of files) {
+		const filename = path.join(commandsPath, file);
+		const command = require(filename);
+		
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
 		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+			console.log(`error: command ${filename} is missing a required "data" or "execute" property.`);
 		}
 	}
 }
@@ -69,6 +71,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
+		
 		if (interaction.replied || interaction.deferred) {
 			await interaction.followUp({
 				content: 'There was an error while executing this command!',
