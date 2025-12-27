@@ -24,18 +24,18 @@ module.exports = {
       return;
     }
 
-    if (!fs.existsSync("settings.json")) {
-      fs.writeFileSync("settings.json", "{}");
+    if (!fs.existsSync("config/settings.json")) {
+      fs.writeFileSync("config/settings.json", "{}");
     }
 
-    const json = JSON.parse(fs.readFileSync("settings.json"));
+    const json = JSON.parse(fs.readFileSync("config/settings.json"));
 
     if (!json[interaction.guild.id]) {
       json[interaction.guild.id] = {};
     }
 
     json[interaction.guild.id][setting] = value;
-    fs.writeFileSync("settings.json", JSON.stringify(json, null, 2));
+    fs.writeFileSync("config/settings.json", JSON.stringify(json, null, 2));
 
 		await interaction.reply(`success, setting ${setting} from ${interaction.guild.name} updated to ${value}`);
 	},

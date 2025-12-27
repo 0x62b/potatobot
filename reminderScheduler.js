@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const filename = path.join(__dirname, 'scheduled_reminders.json');
+const filename = path.join(__dirname, 'config', 'scheduled_reminders.json');
 
 function load() {
   if (!fs.existsSync(filename)) {
@@ -35,7 +35,7 @@ module.exports = {
 
       for (const reminder of reminders) {
         if (reminder.remindAt <= now) {
-          const json = JSON.parse(fs.readFileSync("settings.json"));
+          const json = JSON.parse(fs.readFileSync("config/settings.json"));
           if (!json || !json[reminder.guildId] || !json[reminder.guildId].reminders_channel) return; // fail silently
           
           try {

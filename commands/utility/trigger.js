@@ -30,11 +30,11 @@ module.exports = {
 
     let ret = "";
 
-    if (!fs.existsSync("settings.json")) {
-      fs.writeFileSync("settings.json", "{}");
+    if (!fs.existsSync("config/settings.json")) {
+      fs.writeFileSync("config/settings.json", "{}");
     }
 
-    const json = JSON.parse(fs.readFileSync("settings.json"));
+    const json = JSON.parse(fs.readFileSync("config/settings.json"));
 
     if (!json[interaction.guild.id]) {
       json[interaction.guild.id] = {};
@@ -60,7 +60,7 @@ module.exports = {
         }
         triggers.push({ trigger: name, message: response });
         json[interaction.guild.id].triggers = genTriggers(triggers);
-        fs.writeFileSync("settings.json", JSON.stringify(json, null, 2));
+        fs.writeFileSync("config/settings.json", JSON.stringify(json, null, 2));
         ret = "success";
         break;
       case "remove":
@@ -69,7 +69,7 @@ module.exports = {
 
         if (filtered.length < len) {
           json[interaction.guild.id].triggers = genTriggers(filtered);
-          fs.writeFileSync("settings.json", JSON.stringify(json, null, 2));
+          fs.writeFileSync("config/settings.json", JSON.stringify(json, null, 2));
           ret = "success";
         } else {
           ret = "trigger does not exist";

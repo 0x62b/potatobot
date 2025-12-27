@@ -9,15 +9,15 @@ module.exports = {
   async execute(interaction) {
 	  const confession = interaction.options.getString('confession');
 
-    if (!fs.existsSync("settings.json")) {
+    if (!fs.existsSync("config/settings.json")) {
       await interaction.reply({
-				content: "settings.json does not exist. Please generate it by running /settings confessions_channel <ID OF CONFESSIONS CHANNEL>",
+				content: "config/settings.json does not exist. Please generate it by running /settings confessions_channel <ID OF CONFESSIONS CHANNEL>",
 				flags: MessageFlags.Ephemeral,
 			});
       return;
     }
 
-    const json = JSON.parse(fs.readFileSync("settings.json"));
+    const json = JSON.parse(fs.readFileSync("config/settings.json"));
 
     if (!json[interaction.guild.id]) {
       await interaction.reply({
@@ -47,10 +47,10 @@ module.exports = {
     interaction.client.channels.cache.get(channel).send(`Confession #${number}: ${confession}`);
 
     json[interaction.guild.id].confessions_number = number;
-    fs.writeFileSync("settings.json", JSON.stringify(json, null, 2));
+    fs.writeFileSync("config/settings.json", JSON.stringify(json, null, 2));
 
     if (json[interaction.guild.id].confessions_log == "true") {
-      fs.appendFileSync("confessions_log.txt", `${interaction.guild.id}:${number}:${confession}`);
+      fs.appendFileSync("config/confessions_log.txt", `${interaction.guild.id}:${number}:${confession}`);
     }
 
 		await interaction.reply({ content: `success, your confession was sent as #${number}`, flags: MessageFlags.Ephemeral });

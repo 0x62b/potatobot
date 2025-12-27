@@ -3,7 +3,7 @@ const { MessageFlags } = require('discord.js');
 
 module.exports = {
 	messageCreate: (message) => {
-		const json = JSON.parse(fs.readFileSync("settings.json"));
+		const json = JSON.parse(fs.readFileSync("config/settings.json"));
 		if (!json[message.guild.id]) return;
 
 		const triggers = json[message.guild.id].triggers;
@@ -16,7 +16,7 @@ module.exports = {
 		});
 	},
 	guildMemberAdd: async (member) => {
-		const json = JSON.parse(fs.readFileSync("settings.json"));
+		const json = JSON.parse(fs.readFileSync("config/settings.json"));
 
 		if (json && json[member.guild.id] && json[member.guild.id]["spawn_channel"] && json[member.guild.id]["spawn_message"]) {
 			const channel = await member.guild.channels.fetch(json[member.guild.id]["spawn_channel"]).catch(console.error);

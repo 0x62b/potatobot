@@ -18,7 +18,7 @@ module.exports = {
 	  const days = interaction.options.getInteger('days');
 	  const months = interaction.options.getInteger('months');
 
-    const json = JSON.parse(fs.readFileSync("settings.json"));
+    const json = JSON.parse(fs.readFileSync("config/settings.json"));
     if (!json || !json[interaction.guild.id] || !json[interaction.guild.id].reminders_channel) {
       await interaction.reply({
         content: "Your server does not have a reminders channel set. Ask a server admin to set the `reminders_channel` setting.",

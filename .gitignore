@@ -1,6 +1,6 @@
 .env
 node_modules/
-settings.json
-confessions_log.txt
-scheduled_bans.json
-scheduled_reminders.json
+config/settings.json
+config/confessions_log.txt
+config/scheduled_bans.json
+config/scheduled_reminders.json
