@@ -68,7 +68,7 @@ client.on(Events.GuildMemberAdd, async (member) => {
 		if (channel) {
 			await channel.send(
 				json[member.guild.id]["spawn_message"]
-				.replace("[USER]", member.user.tag)
+				.replace("[USER]", `<@${member.user.id}>`)
 				.replace("[SERVER]", member.guild.name)
 			);
 		}
