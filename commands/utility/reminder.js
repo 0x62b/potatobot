@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const fs = require('fs');
-const reminderScheduler = require('../../reminderScheduler');
+const reminderScheduler = require('../../schedulers/reminderScheduler');
 
 module.exports = {
 	data: new SlashCommandBuilder()

@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, PermissionsBitField, MessageFlags } = require('discord.js');
-const banScheduler = require('../../banScheduler');
 
 module.exports = {
 	data: new SlashCommandBuilder()

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const filename = path.join(__dirname, 'config', 'scheduled_bans.json');
+const filename = path.join(__dirname, '..', 'config', 'scheduled_bans.json');
 
 function load() {
   if (!fs.existsSync(filename)) {

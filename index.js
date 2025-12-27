@@ -1,8 +1,8 @@
 require('dotenv').config();
 
 const { Client, Events, GatewayIntentBits } = require('discord.js');
-const banScheduler = require('./banScheduler');
-const reminderScheduler = require('./reminderScheduler');
+const banScheduler = require('./schedulers/banScheduler');
+const reminderScheduler = require('./schedulers/reminderScheduler');
 const { messageCreate, guildMemberAdd, interactionCreate } = require('./events');
 const { loadCommands } = require('./util');
 
