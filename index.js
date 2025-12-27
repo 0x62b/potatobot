@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
 const banScheduler = require('./banScheduler');
+const reminderScheduler = require('./reminderScheduler');
 
 const token = process.env.BOT_TOKEN;
 const client = new Client({
@@ -56,6 +57,7 @@ for (const folder of folders) {
 
 client.once('ready', () => {
 	banScheduler.init(client);
+	reminderScheduler.init(client);
 });
 
 client.on(Events.GuildMemberAdd, async (member) => {

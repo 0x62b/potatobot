@@ -3,3 +3,4 @@ node_modules/
 settings.json
 confessions_log.txt
 scheduled_bans.json
+scheduled_reminders.json
