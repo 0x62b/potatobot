@@ -35,7 +35,7 @@ module.exports = {
 
     const maxDuration = 28 * 24 * 60 * 60 * 1000;
     let timeoutDuration = duration;
-    if (perm || timeoutDuration > maxDuration) timeoutDuration = maxDuration; //max mute length 28 days
+    if (timeoutDuration > maxDuration) timeoutDuration = maxDuration; //max mute length 28 days
 
     if (timeoutDuration === 0) {
       await interaction.reply({content: "Please specify a duration for the mute", flags: MessageFlags.Ephemeral});
