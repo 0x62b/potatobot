@@ -14,7 +14,7 @@ module.exports = {
     .addBooleanOption((option) => option.setName('permanent').setDescription("whether to ban permanently")),
 	async execute(interaction) {
 	  const user = interaction.options.getUser('user');
-    const reason = interaction.options.getString('reason');
+    const reason = interaction.options.getString('reason') || `banned by ${interaction.user.id}`;
     const mins = interaction.options.getInteger('mins');
     const hours = interaction.options.getInteger('hours');
     const days = interaction.options.getInteger('days');
