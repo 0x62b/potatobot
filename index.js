@@ -64,7 +64,11 @@ client.on(Events.GuildMemberAdd, async (member) => {
 	if (json && json[member.guild.id] && json[member.guild.id]["spawn_channel"] && json[member.guild.id]["spawn_message"]) {
 		const channel = await member.guild.channels.fetch(json[member.guild.id]["spawn_channel"]).catch(console.error);
 		if (channel) {
-			await channel.send(json[member.guild.id]["spawn_message"].replace("[USER]", member.user.tag));
+			await channel.send(
+				json[member.guild.id]["spawn_message"]
+				.replace("[USER]", member.user.tag)
+				.replace("[SERVER]", member.guild.name)
+			);
 		}
 	}
 });

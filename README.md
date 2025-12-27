@@ -6,6 +6,6 @@ PotatoBot is a discord utility bot with some features, including:
 * some moderation commands
   - ban, tempban, kick, mute
 * welcoming new users
-  - you can set the welcome message through setting "spawn_message", example "welcome [USER]"\
-    [USER] is substituted with the user's username
+  - you can set the welcome message through setting "spawn_message", example "welcome [USER] to [SERVER]"\
+    [USER] is substituted with the user's username, [SERVER] is substituted with the server name
   - you can set the channel id to send these messages in with setting "spawn_channel"
