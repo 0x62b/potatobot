@@ -21,7 +21,7 @@ module.exports = {
     .setName('trigger')
     .setDescription('command relating to triggers')
     .addStringOption((option) => option.setName('action').setDescription("action: [add, remove, list]").setRequired(true))
-    .addStringOption((option) => option.setName('name').setDescription("name of the trigger"))
+    .addStringOption((option) => option.setName('name').setDescription("name of the trigger (what triggers it)"))
     .addStringOption((option) => option.setName('response').setDescription("how to respond when triggered")),
 	async execute(interaction) {
 	  const action = interaction.options.getString('action');
@@ -45,23 +45,24 @@ module.exports = {
     switch (action) {
       case "list":
         if (!json[interaction.guild.id].triggers) {
-          ret = "No triggers set.";
+          ret = "No triggers set on this server";
           break;
         }
 
         triggers.map((trigger) => {
           ret += `${trigger.trigger}: ${trigger.message}\n`
         });
+        
         break;
       case "add":
         if (!name || !response) {
-          ret = "missing name or response";
+          ret = `Missing name or response parameter`;
           break;
         }
         triggers.push({ trigger: name, message: response });
         json[interaction.guild.id].triggers = genTriggers(triggers);
         fs.writeFileSync("config/settings.json", JSON.stringify(json, null, 2));
-        ret = "success";
+        ret = `Successfully added a trigger ${name} to respond with ${response}`;
         break;
       case "remove":
         const len = triggers.length;
@@ -70,9 +71,9 @@ module.exports = {
         if (filtered.length < len) {
           json[interaction.guild.id].triggers = genTriggers(filtered);
           fs.writeFileSync("config/settings.json", JSON.stringify(json, null, 2));
-          ret = "success";
+          ret = `Trigger ${name} successfully deleted`;
         } else {
-          ret = "trigger does not exist";
+          ret = `Could not find a trigger named ${name}`;
         }
         break;
     }
