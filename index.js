@@ -55,7 +55,7 @@ for (const folder of folders) {
 	}
 }
 
-client.once('ready', () => {
+client.once(Events.ClientReady, () => {
 	banScheduler.init(client);
 	reminderScheduler.init(client);
 });
