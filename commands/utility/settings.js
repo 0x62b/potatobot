@@ -12,7 +12,7 @@ module.exports = {
 	  const value = interaction.options.getString('value');
 
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
-      await interaction.reply("you do not have sufficient perms");
+      await interaction.reply("You don't have sufficient permissions for this");
       return;
     }
 
@@ -20,7 +20,7 @@ module.exports = {
       setting == "confessions_number" ||
       setting == "triggers"
     ) {
-      await interaction.reply("this setting cannot be set from here");
+      await interaction.reply("You may only set these settings from using their respective commands");
       return;
     }
 
@@ -37,6 +37,6 @@ module.exports = {
     json[interaction.guild.id][setting] = value;
     fs.writeFileSync("config/settings.json", JSON.stringify(json, null, 2));
 
-		await interaction.reply(`success, setting ${setting} from ${interaction.guild.name} updated to ${value}`);
+		await interaction.reply(`Setting ${setting} from ${interaction.guild.name} updated to ${value}`);
 	},
 };

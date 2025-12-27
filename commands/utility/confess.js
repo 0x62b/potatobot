@@ -11,7 +11,7 @@ module.exports = {
 
     if (!fs.existsSync("config/settings.json")) {
       await interaction.reply({
-				content: "config/settings.json does not exist. Please generate it by running /settings confessions_channel <ID OF CONFESSIONS CHANNEL>",
+				content: "config/settings.json does not exist. Please ask an admin to generate it by running /settings confessions_channel <ID OF CONFESSIONS CHANNEL>",
 				flags: MessageFlags.Ephemeral,
 			});
       return;
@@ -21,7 +21,7 @@ module.exports = {
 
     if (!json[interaction.guild.id]) {
       await interaction.reply({
-				content: "This guild does not have a bot settings entry yet. Please generate it by running /settings confessions_channel <ID OF CONFESSIONS CHANNEL>",
+				content: "This guild does not have a bot settings entry yet. Please ask an admin to generate it by running /settings confessions_channel <ID OF CONFESSIONS CHANNEL>",
 				flags: MessageFlags.Ephemeral,
 			});
       return;
@@ -31,7 +31,7 @@ module.exports = {
 
     if (!channel) {
       await interaction.reply({
-				content: "This guild does not have a confessions channel set yet. Please generate it by running /settings confessions_channel <ID OF CONFESSIONS CHANNEL>",
+				content: "This guild does not have a confessions channel set yet. Please ask an admin to generate it by running /settings confessions_channel <ID OF CONFESSIONS CHANNEL>",
 				flags: MessageFlags.Ephemeral,
 			});
       return;
@@ -53,6 +53,6 @@ module.exports = {
       fs.appendFileSync("config/confessions_log.txt", `${interaction.guild.id}:${number}:${confession}\n`);
     }
 
-		await interaction.reply({ content: `success, your confession was sent as #${number}`, flags: MessageFlags.Ephemeral });
+		await interaction.reply({ content: `Your confession was sent as #${number}`, flags: MessageFlags.Ephemeral });
   },
 };
