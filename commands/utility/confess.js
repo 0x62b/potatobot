@@ -50,7 +50,7 @@ module.exports = {
     fs.writeFileSync("config/settings.json", JSON.stringify(json, null, 2));
 
     if (json[interaction.guild.id].confessions_log == "true") {
-      fs.appendFileSync("config/confessions_log.txt", `${interaction.guild.id}:${number}:${confession}`);
+      fs.appendFileSync("config/confessions_log.txt", `${interaction.guild.id}:${number}:${confession}\n`);
     }
 
 		await interaction.reply({ content: `success, your confession was sent as #${number}`, flags: MessageFlags.Ephemeral });
